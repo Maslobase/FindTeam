@@ -3,19 +3,18 @@ package com.maslobase.findteam;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.maslobase.findteam.models.Profile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import okhttp3.HttpUrl;
@@ -24,6 +23,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String userId = null;
     private ImageView avatarImage = null;
+    private FloatingActionButton pmButton = null;
+    private TextView steamIdView = null;
+    private Toolbar toolbar = null;
+    private Profile profile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         userId = getIntent().getStringExtra("userId");
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         // set steam user id text
-        TextView steamIdView = (TextView) findViewById(R.id.userId);
-        steamIdView.setText(userId);
+        //steamIdView = (TextView) findViewById(R.id.userId);
+        //steamIdView.setText(userId);
+
+        // set pmButton
+        pmButton = (FloatingActionButton) findViewById(R.id.pmButton);
 
         // load avatar image
         avatarImage = (ImageView) findViewById(R.id.avatar);
@@ -44,42 +52,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
-        HttpURLConnection urlConnection = null;
-        URL url = new URL(urlString);
-        urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */);
-        urlConnection.setConnectTimeout(15000 /* milliseconds */);
-        urlConnection.setDoOutput(true);
-        urlConnection.connect();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        StringBuilder sb = new StringBuilder();
-
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line + "\n");
-        }
-        br.close();
-
-        String jsonString = sb.toString();
-        System.out.println("JSON: " + jsonString);
-
-        return new JSONObject(jsonString);
-    }
-
-    private class LoadAvatarTask extends AsyncTask<String, Void, String> {
+    private class LoadAvatarTask extends AsyncTask<String, Void, Profile> {
 
         Activity parentActivity;
-        String avatarFullUrl = null;
 
         public LoadAvatarTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Profile doInBackground(String... params) {
             try {
 
 
@@ -91,25 +74,36 @@ public class ProfileActivity extends AppCompatActivity {
                         .addQueryParameter("steamids", userId)
                         .build().url();
 
-                avatarFullUrl = ((JSONObject) getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0)).getString("avatarfull");
+                // FIXME
+                JSONObject profileObj = new JSONObject(Utils.getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0).toString());
+                return new Profile(profileObj);
+                //avatarFullUrl = ((JSONObject) Utils.getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0)).getString("avatarfull");
 
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
+            } finally {
+                return null;
             }
-            return avatarFullUrl;
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Profile steamProfile) {
             //do stuff
-            updateAvatar(avatarFullUrl);
+            updateProfile(steamProfile);
         }
 
     }
 
-    private void updateAvatar(String avatarFullUrl) {
-        Glide.with(this).load(avatarFullUrl).into(avatarImage);
+    private void updateProfile(Profile steamProfile) {
+        //toolbar.setTitle(steamProfile.getPersonaName());
+        steamIdView = (TextView) findViewById(R.id.userId);
+        //steamIdView.setText(steamProfile.getSteamId());
+        //steamIdView.setText(steamProfile.getAvatarFull());
+        //Glide.with(this).load(steamProfile.getAvatarFull()).into(avatarImage);
+
+        // TODO: create/update profile JSON in Firebase
+
     }
 }
