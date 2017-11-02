@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "487177749504",
+    "firebase_url": "https://findteam-36bce.firebaseio.com",
+    "project_id": "findteam-36bce",
+    "storage_bucket": "findteam-36bce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487177749504:android:652fc99b16a9a6ec",
+        "android_client_info": {
+          "package_name": "com.maslobase.findteam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487177749504-r3d1ua23rjsha0cefb4h7r93t6q91lg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maslobase.findteam",
+            "certificate_hash": "7a616ebb48eea9e9cf58d87fde7500eeaabedd25"
+          }
+        },
+        {
+          "client_id": "487177749504-s3ubvk5fn20btn89lpuodu1jumbm98f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWtPjJQM6D_2YQHPzkC1i25-3C1A0OUc8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487177749504-s3ubvk5fn20btn89lpuodu1jumbm98f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

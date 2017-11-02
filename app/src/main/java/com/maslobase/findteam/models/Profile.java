@@ -1,6 +1,8 @@
 package com.maslobase.findteam.models;
 
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,7 +10,7 @@ import org.json.JSONObject;
  * Created by Inessa on 15.10.2017.
  */
 
-
+@IgnoreExtraProperties
 public class Profile {
 
     private String steamId;
@@ -106,7 +108,7 @@ public class Profile {
     }
 
     public Profile(JSONObject profileObj) throws JSONException {
-        this.steamId = profileObj.getString("steamId").toString();
+        this.steamId = profileObj.getString("steamid").toString();
         this.personaName = profileObj.getString("personaname").toString();
         this.profileUrl = profileObj.getString("profileurl").toString();
         this.avatar = profileObj.getString("avatar").toString();

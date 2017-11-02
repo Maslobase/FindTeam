@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseAuth auth;
 
     // The string will appear to the user in the login screen
     // you can put your app's name
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+        if(isUserLogin()){loginUser();}
 
         final WebView webView = new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -62,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
         webView.loadUrl(url2);
 
+    }
+
+    private boolean isUserLogin(){
+        if(auth.getCurrentUser() != null){
+            return true;
+        }
+        return false;
+    }
+    private void loginUser(){
+        Intent loginIntent = new Intent(MainActivity.this, SigninActivity.class);
+        startActivity(loginIntent);
+        finish();
     }
 }
 

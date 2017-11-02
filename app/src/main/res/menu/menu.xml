@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionFindTeam"
+        android:title="@string/browseTeams" />
+    <item
+        android:id="@+id/actionFindPlayer"
+        android:title="@string/browsePlayers" />
+    <item
+        android:id="@+id/actionExit"
+        android:title="@string/exit" />
+</menu>

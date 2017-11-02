@@ -1,14 +1,22 @@
 package com.maslobase.findteam;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.maslobase.findteam.models.Profile;
 
 import org.json.JSONException;
@@ -21,12 +29,17 @@ import okhttp3.HttpUrl;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private String userId = null;
-    private ImageView avatarImage = null;
-    private FloatingActionButton pmButton = null;
-    private TextView steamIdView = null;
-    private Toolbar toolbar = null;
-    private Profile profile = null;
+    private String userId;
+    private ImageView avatarImage;
+    private FloatingActionButton pmButton;
+    private TextView steamIdView;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference userRef = database.getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         userId = getIntent().getStringExtra("userId");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        DatabaseReference usersRef = database.getReference("users");
+        usersRef.push();
 
-        // set steam user id text
-        //steamIdView = (TextView) findViewById(R.id.userId);
-        //steamIdView.setText(userId);
+        toolbar = findViewById(R.id.toolbar);
+        pmButton = findViewById(R.id.pmButton);
+        avatarImage = findViewById(R.id.avatar);
 
-        // set pmButton
-        pmButton = (FloatingActionButton) findViewById(R.id.pmButton);
-
-        // load avatar image
-        avatarImage = (ImageView) findViewById(R.id.avatar);
+        initNavigationView();
 
         LoadAvatarTask task = new LoadAvatarTask(this);
         task.execute();
@@ -52,17 +62,61 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    private void initNavigationView() {
 
-    private class LoadAvatarTask extends AsyncTask<String, Void, Profile> {
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.view_navigation_open, R.string.view_navigation_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()) {
+                    case R.id.actionFindTeam:
+                        browseTeams();
+                        break;
+                    case R.id.actionFindPlayer:
+                        browsePlayers();
+                        break;
+                    case R.id.actionExit:
+                        finish();
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    private void browsePlayers() {
+        Intent intent = new Intent(getApplicationContext(), FindTeamActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    private void browseTeams() {
+        Intent intent = new Intent(getApplicationContext(), FindPlayerActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+
+    private class LoadAvatarTask extends AsyncTask<String, Void, String> {
 
         Activity parentActivity;
+        String profileString;
 
         public LoadAvatarTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
         @Override
-        protected Profile doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             try {
 
 
@@ -74,36 +128,42 @@ public class ProfileActivity extends AppCompatActivity {
                         .addQueryParameter("steamids", userId)
                         .build().url();
 
-                // FIXME
-                JSONObject profileObj = new JSONObject(Utils.getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0).toString());
-                return new Profile(profileObj);
-                //avatarFullUrl = ((JSONObject) Utils.getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0)).getString("avatarfull");
-
+                profileString = Utils.getJSONObjectFromURL(url.toString()).getJSONObject("response").getJSONArray("players").get(0).toString();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
-                return null;
+                return profileString;
             }
         }
 
         @Override
-        protected void onPostExecute(Profile steamProfile) {
+        protected void onPostExecute(String profileString) {
             //do stuff
-            updateProfile(steamProfile);
+            try {
+                updateProfile(profileString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void updateProfile(Profile steamProfile) {
-        //toolbar.setTitle(steamProfile.getPersonaName());
-        steamIdView = (TextView) findViewById(R.id.userId);
-        //steamIdView.setText(steamProfile.getSteamId());
-        //steamIdView.setText(steamProfile.getAvatarFull());
-        //Glide.with(this).load(steamProfile.getAvatarFull()).into(avatarImage);
+    private void updateProfile(String profileString) throws JSONException {
+        JSONObject profileJsonObj = new JSONObject(profileString);
+        Profile profile = new Profile(profileJsonObj);
 
-        // TODO: create/update profile JSON in Firebase
+        toolbar.setTitle(profile.getPersonaName());
+        steamIdView = findViewById(R.id.userId);
+        steamIdView.setText(profile.getSteamId());
+        Glide.with(this).load(profile.getAvatarFull()).into(avatarImage);
 
+        // create/update profile JSON in Firebase
+        writeNewProfile(profile);
+    }
+
+    private void writeNewProfile(Profile profile) {
+        userRef.child(userId).setValue(profile);
     }
 }
