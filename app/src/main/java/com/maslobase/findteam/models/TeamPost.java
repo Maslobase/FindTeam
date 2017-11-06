@@ -8,14 +8,18 @@ import java.util.List;
 
 public class TeamPost {
 
-    private String id;
+    private Long id;
     private String author;
     private String shortTitle;
     private String mmr;
     private String age;
     private List<String> roles;
 
-    public TeamPost(String id, String author, String shortTitle, String mmr, String age, List<String> roles) {
+    public TeamPost() {
+
+    }
+
+    public TeamPost(Long id, String author, String shortTitle, String mmr, String age, List<String> roles) {
         this.id = id;
         this.author = author;
 
@@ -25,11 +29,11 @@ public class TeamPost {
         this.roles = roles;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

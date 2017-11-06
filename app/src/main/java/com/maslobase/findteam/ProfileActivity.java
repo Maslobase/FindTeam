@@ -94,13 +94,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void browsePlayers() {
-        Intent intent = new Intent(getApplicationContext(), FindTeamActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FindPlayerActivity.class);
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
 
     private void browseTeams() {
-        Intent intent = new Intent(getApplicationContext(), FindPlayerActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FindTeamActivity.class);
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
