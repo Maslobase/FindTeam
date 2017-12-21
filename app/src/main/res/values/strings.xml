@@ -17,4 +17,14 @@
     <string name="browseTeams">Find a team</string>
     <string name="browsePlayers">Find a player</string>
     <string name="exit">Exit</string>
+    <string name="email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="action_sign_in_short">Register</string>
+    <string name="btn_forgot_password">Forgot password?</string>
+    <string name="btn_link_to_login">Already registered. Please, log in!</string>
+    <string name="hint_email">Email</string>
+    <string name="btn_login">Login</string>
+    <string name="loading">Loading...</string>
+    <string name="log_error_occurred">Some error occured</string>
+    <string name="web_client_id">487177749504-s3ubvk5fn20btn89lpuodu1jumbm98f8.apps.googleusercontent.com	</string>
 </resources>

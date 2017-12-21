@@ -6,4 +6,5 @@
     <color name="colorWhite">#fff</color>
     <color name="mainBackground">#ccc</color>
     <color name="primaryDark">#333</color>
+    <color name="white">#fff</color>
 </resources>

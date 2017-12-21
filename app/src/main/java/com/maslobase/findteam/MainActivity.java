@@ -9,21 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
-
-    // The string will appear to the user in the login screen
-    // you can put your app's name
     final String REALM_PARAM = "FindTeam";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
-        if(isUserLogin()){loginUser();}
 
         final WebView webView = new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -35,19 +27,15 @@ public class MainActivity extends AppCompatActivity {
             public void onPageStarted(WebView view, String url,
                                       Bitmap favicon) {
 
-                //checks the url being loaded
                 setTitle(url);
                 Uri Url = Uri.parse(url);
 
                 if (Url.getAuthority().equals(REALM_PARAM.toLowerCase())) {
-                    // That means that authentication is finished and the url contains user's id.
                     webView.stopLoading();
 
-                    // Extracts user id.
                     Uri userAccountUrl = Uri.parse(Url.getQueryParameter("openid.identity"));
                     String userId = userAccountUrl.getLastPathSegment();
 
-                    // Do whatever you want with the user's steam id
                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
@@ -56,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         });
         setContentView(webView);
 
-        // Constructing openid url request
         String url2 = "https://steamcommunity.com/openid/login?" +
                 "openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&" +
                 "openid.identity=http://specs.openid.net/auth/2.0/identifier_select&" +
@@ -67,18 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         webView.loadUrl(url2);
 
-    }
-
-    private boolean isUserLogin(){
-        if(auth.getCurrentUser() != null){
-            return true;
-        }
-        return false;
-    }
-    private void loginUser(){
-        Intent loginIntent = new Intent(MainActivity.this, SigninActivity.class);
-        startActivity(loginIntent);
-        finish();
     }
 }
 

@@ -1,7 +1,10 @@
 package com.maslobase.findteam;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +20,15 @@ import java.net.URL;
  */
 
 public class Utils {
+
+    private Context mContext = null;
+
+    /**
+     * Public constructor that takes mContext for later use
+     */
+    public Utils(Context con) {
+        mContext = con;
+    }
 
     public static int getDominantColor(Bitmap bitmap) {
         if (bitmap == null) {
@@ -77,6 +89,27 @@ public class Utils {
         System.out.println("JSON: " + jsonString);
 
         return new JSONObject(jsonString);
+    }
+
+    /**
+     * Encode user email to use it as a Firebase key (Firebase does not allow "." in the key name)
+     * Encoded email is also used as "userEmail", list and item "owner" value
+     */
+    public static String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
+
+    //This is a method to Check if the device internet connection is currently on
+    public boolean isNetworkAvailable() {
+
+        ConnectivityManager connectivityManager
+
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
     }
 
 }
