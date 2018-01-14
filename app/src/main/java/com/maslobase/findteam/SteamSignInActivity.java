@@ -1,6 +1,5 @@
 package com.maslobase.findteam;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MainActivity extends AppCompatActivity {
+public class SteamSignInActivity extends AppCompatActivity {
 
     final String REALM_PARAM = "FindTeam";
 
@@ -19,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         final WebView webView = new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
-
-        final Activity activity = this;
 
         webView.setWebViewClient(new WebViewClient() {
             @Override

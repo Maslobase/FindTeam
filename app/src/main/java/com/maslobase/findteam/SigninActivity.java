@@ -40,7 +40,7 @@ public class SigninActivity extends BaseActivity implements GoogleApiClient.Conn
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int RC_SIGN_IN = 9001;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "SteamSignInActivity";
     private String idToken;
     public SharedPrefManager sharedPrefManager;
     private final Context mContext = this;
@@ -112,7 +112,7 @@ public class SigninActivity extends BaseActivity implements GoogleApiClient.Conn
                     Toast.makeText(SigninActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
 
                     // After saving data to Firebase, goto next activity
-                    Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SigninActivity.this, SteamSignInActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
@@ -214,7 +214,7 @@ public class SigninActivity extends BaseActivity implements GoogleApiClient.Conn
                             createUserInFirebaseHelper();
                             Toast.makeText(SigninActivity.this, "Login successful",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                            Intent intent = new Intent(SigninActivity.this, SteamSignInActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
