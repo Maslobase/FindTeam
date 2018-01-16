@@ -3,18 +3,18 @@ package com.maslobase.findteam;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.maslobase.findteam.models.Profile;
@@ -27,16 +27,15 @@ import java.net.URL;
 
 import okhttp3.HttpUrl;
 
-public class ProfileActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private String userId;
-    private ImageView avatarImage;
-    private FloatingActionButton pmButton;
-    private TextView steamIdView;
+    private ImageView avatarView;
+    private TextView usernameView;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
+    private String userId;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference userRef = database.getReference().child("users");
@@ -44,21 +43,19 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_main);
         userId = getIntent().getStringExtra("userId");
-
         DatabaseReference usersRef = database.getReference("users");
         usersRef.push();
 
-        toolbar = findViewById(R.id.toolbar);
-        pmButton = findViewById(R.id.pmButton);
-        avatarImage = findViewById(R.id.avatar);
+        avatarView = findViewById(R.id.avatar_dashboard);
+        usernameView = findViewById(R.id.username);
 
         initNavigationView();
 
+
         LoadAvatarTask task = new LoadAvatarTask(this);
         task.execute();
-
 
     }
 
@@ -93,25 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void browsePlayers() {
-        Intent intent = new Intent(getApplicationContext(), FindPlayerActivity.class);
-        intent.putExtra("userId", userId);
-        startActivity(intent);
-    }
-
-    private void browseTeams() {
-        Intent intent = new Intent(getApplicationContext(), FindTeamActivity.class);
-        intent.putExtra("userId", userId);
-        startActivity(intent);
-    }
-
-
     private class LoadAvatarTask extends AsyncTask<String, Void, String> {
 
         Activity parentActivity;
         String profileString;
 
-        public LoadAvatarTask(ProfileActivity activity) {
+        public LoadAvatarTask(MainActivity activity) {
             this.parentActivity = activity;
         }
 
@@ -154,10 +138,11 @@ public class ProfileActivity extends AppCompatActivity {
         JSONObject profileJsonObj = new JSONObject(profileString);
         Profile profile = new Profile(profileJsonObj);
 
-        toolbar.setTitle(profile.getPersonaName());
-        steamIdView = findViewById(R.id.userId);
-        steamIdView.setText(profile.getSteamId());
-        Glide.with(this).load(profile.getAvatarFull()).into(avatarImage);
+        //toolbar.setTitle(profile.getPersonaName());
+        //steamIdView = findViewById(R.id.userId);
+        //steamIdView.setText(profile.getSteamId());
+        Glide.with(this).load(profile.getAvatarFull()).into(avatarView);
+        usernameView.setText(profile.getPersonaName());
 
         // create/update profile JSON in Firebase
         writeNewProfile(profile);
@@ -165,5 +150,18 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void writeNewProfile(Profile profile) {
         userRef.child(userId).setValue(profile);
+    }
+
+
+    private void browsePlayers() {
+        Intent intent = new Intent(getApplicationContext(), FindPlayerActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
+    }
+
+    private void browseTeams() {
+        Intent intent = new Intent(getApplicationContext(), FindTeamActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
     }
 }

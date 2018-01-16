@@ -33,7 +33,7 @@ public class SteamSignInActivity extends AppCompatActivity {
                     Uri userAccountUrl = Uri.parse(Url.getQueryParameter("openid.identity"));
                     String userId = userAccountUrl.getLastPathSegment();
 
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                 }
