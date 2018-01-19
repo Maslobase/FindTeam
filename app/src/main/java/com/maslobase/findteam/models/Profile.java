@@ -1,16 +1,10 @@
 package com.maslobase.findteam.models;
 
 
-import com.google.firebase.database.IgnoreExtraProperties;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by Inessa on 15.10.2017.
  */
 
-@IgnoreExtraProperties
 public class Profile {
 
     private String steamId;
@@ -22,6 +16,20 @@ public class Profile {
     private String personaState;
     private String communityVisibilityState;
     private String profileState;
+
+    public Profile(String steamId, String personaName, String profileUrl, String avatar, String avatarMedium, String avatarFull, String personaState, String communityVisibilityState, String profileState, String lastLogoff) {
+        this.steamId = steamId;
+        this.personaName = personaName;
+        this.profileUrl = profileUrl;
+        this.avatar = avatar;
+        this.avatarMedium = avatarMedium;
+        this.avatarFull = avatarFull;
+        this.personaState = personaState;
+        this.communityVisibilityState = communityVisibilityState;
+        this.profileState = profileState;
+        this.lastLogoff = lastLogoff;
+    }
+
     private String lastLogoff;
 
     public String getSteamId() {
@@ -105,18 +113,5 @@ public class Profile {
     }
 
     public Profile() {
-    }
-
-    public Profile(JSONObject profileObj) throws JSONException {
-        this.steamId = profileObj.getString("steamid").toString();
-        this.personaName = profileObj.getString("personaname").toString();
-        this.profileUrl = profileObj.getString("profileurl").toString();
-        this.avatar = profileObj.getString("avatar").toString();
-        this.avatarMedium = profileObj.getString("avatarmedium").toString();
-        this.avatarFull = profileObj.getString("avatarfull").toString();
-        this.personaState = profileObj.getString("personastate").toString();
-        this.communityVisibilityState = profileObj.getString("communityvisibilitystate").toString();
-        this.profileState = profileObj.getString("profilestate").toString();
-        this.lastLogoff = profileObj.getString("lastlogoff").toString();
     }
 }
