@@ -1,15 +1,12 @@
 package com.maslobase.findteam;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import com.google.common.primitives.UnsignedLong;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,5 +112,9 @@ public class Utils {
 
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
+    }
+
+    public static String steamId64ToSteamId32(String steamId64) {
+        return String.valueOf(UnsignedLong.valueOf(steamId64).intValue());
     }
 }
