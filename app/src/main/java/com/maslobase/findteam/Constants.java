@@ -17,4 +17,5 @@ public class Constants {
     public static final String API = "api";
     public static final String PLAYERS = "players";
     public static final String WL = "wl";
+    public static final String HEROES = "heroes";
 }

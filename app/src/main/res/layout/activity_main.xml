@@ -106,7 +106,68 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="50dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/cardview_light_background">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Most played heroes"
+                        android:textColor="#000000" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/heroImage1"
+                            android:layout_width="128dp"
+                            android:layout_height="104dp" />
+
+                        <ImageView
+                            android:id="@+id/heroImage2"
+                            android:layout_width="128dp"
+                            android:layout_height="104dp" />
+
+                        <ImageView
+                            android:id="@+id/heroImage3"
+                            android:layout_width="128dp"
+                            android:layout_height="104dp" />
+                    </LinearLayout>
+
+                    <!--TextView android:id="@+id/heroGamesPlayed1" />
+
+                    <TextView android:id="@+id/heroGamesPlayed2" />
+
+                    <TextView android:id="@+id/heroGamesPlayed3" /-->
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
     </android.support.design.widget.CoordinatorLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"

@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Hero {
     private String hero_id;
-    private Date last_played;
+    private Long last_played;
     private Integer games;
     private Integer win;
     private Integer with_games;
@@ -31,11 +31,11 @@ public class Hero {
         this.hero_id = hero_id;
     }
 
-    public Date getLast_played() {
+    public Long getLast_played() {
         return last_played;
     }
 
-    public void setLast_played(Date last_played) {
+    public void setLast_played(Long last_played) {
         this.last_played = last_played;
     }
 
@@ -87,7 +87,7 @@ public class Hero {
         this.against_win = against_win;
     }
 
-    public Hero(String hero_id, Date last_played, Integer games, Integer win, Integer with_games, Integer with_win, Integer against_games, Integer against_win) {
+    public Hero(String hero_id, Long last_played, Integer games, Integer win, Integer with_games, Integer with_win, Integer against_games, Integer against_win) {
         this.hero_id = hero_id;
         this.last_played = last_played;
         this.games = games;
@@ -100,7 +100,7 @@ public class Hero {
 
     public Hero(JSONObject heroObj) throws JSONException {
         this.hero_id = heroObj.getString("hero_id");
-        this.last_played = new Date(heroObj.getLong("last_played"));
+        this.last_played = heroObj.getLong("last_played");
         this.games = heroObj.getInt("games");
         this.win = heroObj.getInt("win");
         this.with_games = heroObj.getInt("with_games");
