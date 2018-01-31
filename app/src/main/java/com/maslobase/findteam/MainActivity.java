@@ -47,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView hero1Image;
     private ImageView hero2Image;
     private ImageView hero3Image;
+    private TextView heroName1;
+    private TextView heroName2;
+    private TextView heroName3;
+    private TextView heroGamesPlayed1;
+    private TextView heroGamesPlayed2;
+    private TextView heroGamesPlayed3;
+
 
 
     private String userId;
@@ -76,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
         hero1Image = findViewById(R.id.heroImage1);
         hero2Image = findViewById(R.id.heroImage2);
         hero3Image = findViewById(R.id.heroImage3);
+        heroName1 = findViewById(R.id.heroName1);
+        heroName2 = findViewById(R.id.heroName2);
+        heroName3 = findViewById(R.id.heroName3);
+        heroGamesPlayed1 = findViewById(R.id.heroGamesPlayed1);
+        heroGamesPlayed2 = findViewById(R.id.heroGamesPlayed2);
+        heroGamesPlayed3 = findViewById(R.id.heroGamesPlayed3);
+
+
 
         initNavigationView();
 
@@ -300,18 +315,18 @@ public class MainActivity extends AppCompatActivity {
         Integer heroId2 = Integer.valueOf(dota2StatsHeroes[1].getHero_id());
         Integer heroId3 = Integer.valueOf(dota2StatsHeroes[2].getHero_id());
 
-        String hero1Name = getHeroName(heroId1);
-        String hero2Name = getHeroName(heroId2);
-        String hero3Name = getHeroName(heroId3);
+        String heroImageFileName1 = getHeroFileName(heroId1);
+        String heroImageFileName2 = getHeroFileName(heroId2);
+        String heroImageFileName3 = getHeroFileName(heroId3);
 
 
         StorageReference heroesIconsRef = storageRef.child("images").child("dota").child("heroes_icons");
 
 
 
-        StorageReference hero1IconRef = heroesIconsRef.child(hero1Name.concat("_icon.png"));
-        StorageReference hero2IconRef = heroesIconsRef.child(hero2Name.concat("_icon.png"));
-        StorageReference hero3IconRef = heroesIconsRef.child(hero3Name.concat("_icon.png"));
+        StorageReference hero1IconRef = heroesIconsRef.child(heroImageFileName1.concat("_icon.png"));
+        StorageReference hero2IconRef = heroesIconsRef.child(heroImageFileName2.concat("_icon.png"));
+        StorageReference hero3IconRef = heroesIconsRef.child(heroImageFileName3.concat("_icon.png"));
 
         GlideApp.with(this)
                 .load(hero1IconRef)
@@ -325,8 +340,23 @@ public class MainActivity extends AppCompatActivity {
                 .load(hero3IconRef)
                 .override(300, 200)
                 .into(hero3Image);
-        //hero1Image.setImageDrawable();
 
+        heroName1.setText(getHeroName(heroId1));
+        heroName1.setText(getHeroName(heroId2));
+        heroName1.setText(getHeroName(heroId3));
+
+        heroGamesPlayed1.setText(dota2StatsHeroes[0].getGames().toString().concat(" games"));
+        heroGamesPlayed2.setText(dota2StatsHeroes[1].getGames().toString().concat(" games"));
+        heroGamesPlayed3.setText(dota2StatsHeroes[2].getGames().toString().concat(" games"));
+    }
+
+    private String getHeroFileName(Integer heroId) throws JSONException {
+        for (int i = 0; i < heroesJson.length(); i++) {
+            if (heroId == heroesJson.getJSONObject(i).getInt("id")) {
+                return heroesJson.getJSONObject(i).getString("filename");
+            }
+        }
+        return null;
     }
 
     private String getHeroName(Integer heroId) throws JSONException {
