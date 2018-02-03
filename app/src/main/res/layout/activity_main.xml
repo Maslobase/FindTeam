@@ -127,15 +127,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="vertical"
                     android:paddingVertical="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginVertical="16dp"
+                        android:capitalize="characters"
                         android:text="Most played heroes"
                         android:textColor="#000000"
-                        android:layout_marginVertical="16dp"/>
+                        android:textSize="24sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -150,22 +154,28 @@
 
                             <ImageView
                                 android:id="@+id/heroImage1"
-                                android:layout_width="128dp"
-                                android:layout_height="104dp" />
+                                android:layout_width="100dp"
+                                android:layout_height="56dp" />
 
                             <TextView
                                 android:id="@+id/heroName1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:gravity="center"
                                 android:padding="8dp"
-                                tools:text="Lich"/>
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="Lich" />
 
                             <TextView
                                 android:id="@+id/heroGamesPlayed1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="30 games"/>
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="30 games" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -176,21 +186,27 @@
 
                             <ImageView
                                 android:id="@+id/heroImage2"
-                                android:layout_width="128dp"
-                                android:layout_height="104dp" />
+                                android:layout_width="100dp"
+                                android:layout_height="56dp" />
 
                             <TextView
                                 android:id="@+id/heroName2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:padding="8dp"
-                                tools:text="Lion"/>
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="Lion" />
 
                             <TextView
                                 android:id="@+id/heroGamesPlayed2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="30 games"/>
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="30 games" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -202,21 +218,27 @@
 
                             <ImageView
                                 android:id="@+id/heroImage3"
-                                android:layout_width="128dp"
-                                android:layout_height="104dp" />
+                                android:layout_width="100dp"
+                                android:layout_height="56dp" />
 
                             <TextView
                                 android:id="@+id/heroName3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:padding="8dp"
-                                tools:text="Lina"/>
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="Lina" />
 
                             <TextView
                                 android:id="@+id/heroGamesPlayed3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="30 games"/>
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                tools:text="30 games" />
                         </LinearLayout>
 
 

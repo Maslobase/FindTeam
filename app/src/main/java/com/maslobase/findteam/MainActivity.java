@@ -342,8 +342,8 @@ public class MainActivity extends AppCompatActivity {
                 .into(hero3Image);
 
         heroName1.setText(getHeroName(heroId1));
-        heroName1.setText(getHeroName(heroId2));
-        heroName1.setText(getHeroName(heroId3));
+        heroName2.setText(getHeroName(heroId2));
+        heroName3.setText(getHeroName(heroId3));
 
         heroGamesPlayed1.setText(dota2StatsHeroes[0].getGames().toString().concat(" games"));
         heroGamesPlayed2.setText(dota2StatsHeroes[1].getGames().toString().concat(" games"));
