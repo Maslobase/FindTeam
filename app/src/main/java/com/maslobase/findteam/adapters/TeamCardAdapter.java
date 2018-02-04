@@ -24,7 +24,7 @@ public class TeamCardAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.team_cardview,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_team,viewGroup,false);
         return new CustomViewHolder(view);
     }
 

@@ -9,19 +9,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
-import com.maslobase.findteam.models.Dota2StatsHeroes;
 import com.maslobase.findteam.models.Dota2StatsPlayer;
 import com.maslobase.findteam.models.Dota2StatsWL;
 import com.maslobase.findteam.models.Hero;
@@ -31,7 +28,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import okhttp3.HttpUrl;
 
@@ -44,16 +48,24 @@ public class MainActivity extends AppCompatActivity {
     private TextView wl;
     private TextView matches;
     private TextView mmr;
-    private ImageView hero1Image;
-    private ImageView hero2Image;
-    private ImageView hero3Image;
+    private ImageView heroImage1;
+    private ImageView heroImage2;
+    private ImageView heroImage3;
     private TextView heroName1;
     private TextView heroName2;
     private TextView heroName3;
     private TextView heroGamesPlayed1;
     private TextView heroGamesPlayed2;
     private TextView heroGamesPlayed3;
-
+    private ImageView bestHeroImage1;
+    private ImageView bestHeroImage2;
+    private ImageView bestHeroImage3;
+    private TextView bestHeroName1;
+    private TextView bestHeroName2;
+    private TextView bestHeroName3;
+    private TextView heroWinrate1;
+    private TextView heroWinrate2;
+    private TextView heroWinrate3;
 
 
     private String userId;
@@ -80,16 +92,24 @@ public class MainActivity extends AppCompatActivity {
         wl = findViewById(R.id.wl);
         matches = findViewById(R.id.matches);
         mmr = findViewById(R.id.mmr);
-        hero1Image = findViewById(R.id.heroImage1);
-        hero2Image = findViewById(R.id.heroImage2);
-        hero3Image = findViewById(R.id.heroImage3);
+        heroImage1 = findViewById(R.id.heroImage1);
+        heroImage2 = findViewById(R.id.heroImage2);
+        heroImage3 = findViewById(R.id.heroImage3);
         heroName1 = findViewById(R.id.heroName1);
         heroName2 = findViewById(R.id.heroName2);
         heroName3 = findViewById(R.id.heroName3);
         heroGamesPlayed1 = findViewById(R.id.heroGamesPlayed1);
         heroGamesPlayed2 = findViewById(R.id.heroGamesPlayed2);
         heroGamesPlayed3 = findViewById(R.id.heroGamesPlayed3);
-
+        bestHeroImage1 = findViewById(R.id.bestHeroImage1);
+        bestHeroImage2 = findViewById(R.id.bestHeroImage2);
+        bestHeroImage3 = findViewById(R.id.bestHeroImage3);
+        bestHeroName1 = findViewById(R.id.bestHeroName1);
+        bestHeroName2 = findViewById(R.id.bestHeroName2);
+        bestHeroName3 = findViewById(R.id.bestHeroName3);
+        heroWinrate1 = findViewById(R.id.heroWinrate1);
+        heroWinrate2 = findViewById(R.id.heroWinrate2);
+        heroWinrate3 = findViewById(R.id.heroWinrate3);
 
 
         initNavigationView();
@@ -302,10 +322,80 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String dota2HeroesPlayerString) {
             try {
                 updateDota2PlayerMostPlayedHeroes(dota2HeroesPlayerString);
+                updateDota2PlayerBestHeroes(dota2HeroesPlayerString);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void updateDota2PlayerBestHeroes(String dota2HeroesPlayerString) throws JSONException {
+        Gson gson = new Gson();
+        Hero[] dota2StatsHeroes = gson.fromJson(dota2HeroesPlayerString, Hero[].class);
+        List<Hero> heroesList = new ArrayList<>();
+
+//        Iterator<Hero> iterator = heroesList.iterator();
+//        while (iterator.hasNext()) {
+//            Hero value = iterator.next();
+//            if (value.getGames() < 5) {
+//                iterator.remove();
+//                break;
+//            }
+//        }
+        for (int i = 0; i < dota2StatsHeroes.length; i++) {
+            if (dota2StatsHeroes[i].getGames() > 4) {
+                heroesList.add(dota2StatsHeroes[i]);
+            }
+        }
+
+        Collections.sort(heroesList, new Comparator<Hero>() {
+            @Override
+            public int compare(Hero hero1, Hero hero2) {
+                Float winrate1 = Float.valueOf(hero1.getWin()) / Float.valueOf(hero1.getGames());
+                Float winrate2 = Float.valueOf(hero2.getWin()) / Float.valueOf(hero2.getGames());
+                return winrate1.compareTo(winrate2);
+            }
+        });
+
+        Collections.reverse(heroesList);
+
+        Integer heroId1 = Integer.valueOf(heroesList.get(0).getHero_id());
+        Integer heroId2 = Integer.valueOf(heroesList.get(1).getHero_id());
+        Integer heroId3 = Integer.valueOf(heroesList.get(2).getHero_id());
+
+        String heroImageFileName1 = getHeroFileName(heroId1);
+        String heroImageFileName2 = getHeroFileName(heroId2);
+        String heroImageFileName3 = getHeroFileName(heroId3);
+
+        StorageReference heroesIconsRef = storageRef.child("images").child("dota").child("heroes_icons");
+
+        StorageReference hero1IconRef = heroesIconsRef.child(heroImageFileName1.concat("_icon.png"));
+        StorageReference hero2IconRef = heroesIconsRef.child(heroImageFileName2.concat("_icon.png"));
+        StorageReference hero3IconRef = heroesIconsRef.child(heroImageFileName3.concat("_icon.png"));
+
+        GlideApp.with(this)
+                .load(hero1IconRef)
+                .override(300, 200)
+                .into(bestHeroImage1);
+        GlideApp.with(this)
+                .load(hero2IconRef)
+                .override(300, 200)
+                .into(bestHeroImage2);
+        GlideApp.with(this)
+                .load(hero3IconRef)
+                .override(300, 200)
+                .into(bestHeroImage3);
+
+        bestHeroName1.setText(getHeroName(heroId1));
+        bestHeroName2.setText(getHeroName(heroId2));
+        bestHeroName3.setText(getHeroName(heroId3));
+
+        heroWinrate1.setText(String.valueOf(BigDecimal.valueOf(Float.valueOf(heroesList.get(0).getWin()) / Float.valueOf(heroesList.get(0).getGames()) * 100.00)
+                .setScale(2, RoundingMode.HALF_DOWN)).concat(" %"));
+        heroWinrate2.setText(String.valueOf(BigDecimal.valueOf(Float.valueOf(heroesList.get(1).getWin()) / Float.valueOf(heroesList.get(1).getGames()) * 100.00)
+                .setScale(2, RoundingMode.HALF_DOWN)).concat(" %"));
+        heroWinrate3.setText(String.valueOf(BigDecimal.valueOf(Float.valueOf(heroesList.get(2).getWin()) / Float.valueOf(heroesList.get(2).getGames()) * 100.00)
+                .setScale(2, RoundingMode.HALF_DOWN)).concat(" %"));
     }
 
     private void updateDota2PlayerMostPlayedHeroes(String dota2HeroesPlayerString) throws JSONException {
@@ -319,10 +409,7 @@ public class MainActivity extends AppCompatActivity {
         String heroImageFileName2 = getHeroFileName(heroId2);
         String heroImageFileName3 = getHeroFileName(heroId3);
 
-
         StorageReference heroesIconsRef = storageRef.child("images").child("dota").child("heroes_icons");
-
-
 
         StorageReference hero1IconRef = heroesIconsRef.child(heroImageFileName1.concat("_icon.png"));
         StorageReference hero2IconRef = heroesIconsRef.child(heroImageFileName2.concat("_icon.png"));
@@ -331,15 +418,15 @@ public class MainActivity extends AppCompatActivity {
         GlideApp.with(this)
                 .load(hero1IconRef)
                 .override(300, 200)
-                .into(hero1Image);
+                .into(heroImage1);
         GlideApp.with(this)
                 .load(hero2IconRef)
                 .override(300, 200)
-                .into(hero2Image);
+                .into(heroImage2);
         GlideApp.with(this)
                 .load(hero3IconRef)
                 .override(300, 200)
-                .into(hero3Image);
+                .into(heroImage3);
 
         heroName1.setText(getHeroName(heroId1));
         heroName2.setText(getHeroName(heroId2));
