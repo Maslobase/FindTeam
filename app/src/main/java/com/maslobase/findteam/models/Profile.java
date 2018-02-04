@@ -1,117 +1,240 @@
 package com.maslobase.findteam.models;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/**
- * Created by Inessa on 15.10.2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "steamid",
+        "communityvisibilitystate",
+        "profilestate",
+        "personaname",
+        "lastlogoff",
+        "profileurl",
+        "avatar",
+        "avatarmedium",
+        "avatarfull",
+        "personastate",
+        "primaryclanid",
+        "timecreated",
+        "personastateflags",
+        "loccountrycode",
+        "locstatecode",
+        "loccityid"
+})
 public class Profile {
 
-    private String steamId;
-    private String personaName;
-    private String profileUrl;
+    @JsonProperty("steamid")
+    private String steamid;
+    @JsonProperty("communityvisibilitystate")
+    private Integer communityvisibilitystate;
+    @JsonProperty("profilestate")
+    private Integer profilestate;
+    @JsonProperty("personaname")
+    private String personaname;
+    @JsonProperty("lastlogoff")
+    private Integer lastlogoff;
+    @JsonProperty("profileurl")
+    private String profileurl;
+    @JsonProperty("avatar")
     private String avatar;
-    private String avatarMedium;
-    private String avatarFull;
-    private String personaState;
-    private String communityVisibilityState;
-    private String profileState;
+    @JsonProperty("avatarmedium")
+    private String avatarmedium;
+    @JsonProperty("avatarfull")
+    private String avatarfull;
+    @JsonProperty("personastate")
+    private Integer personastate;
+    @JsonProperty("primaryclanid")
+    private String primaryclanid;
+    @JsonProperty("timecreated")
+    private Integer timecreated;
+    @JsonProperty("personastateflags")
+    private Integer personastateflags;
+    @JsonProperty("loccountrycode")
+    private String loccountrycode;
+    @JsonProperty("locstatecode")
+    private String locstatecode;
+    @JsonProperty("loccityid")
+    private Integer loccityid;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Profile(String steamId, String personaName, String profileUrl, String avatar, String avatarMedium, String avatarFull, String personaState, String communityVisibilityState, String profileState, String lastLogoff) {
-        this.steamId = steamId;
-        this.personaName = personaName;
-        this.profileUrl = profileUrl;
-        this.avatar = avatar;
-        this.avatarMedium = avatarMedium;
-        this.avatarFull = avatarFull;
-        this.personaState = personaState;
-        this.communityVisibilityState = communityVisibilityState;
-        this.profileState = profileState;
-        this.lastLogoff = lastLogoff;
+    @JsonProperty("steamid")
+    public String getSteamid() {
+        return steamid;
     }
 
-    private String lastLogoff;
-
-    public String getSteamId() {
-        return steamId;
+    @JsonProperty("steamid")
+    public void setSteamid(String steamid) {
+        this.steamid = steamid;
     }
 
-    public void setSteamId(String steamId) {
-        this.steamId = steamId;
+    @JsonProperty("communityvisibilitystate")
+    public Integer getCommunityvisibilitystate() {
+        return communityvisibilitystate;
     }
 
-    public String getPersonaName() {
-        return personaName;
+    @JsonProperty("communityvisibilitystate")
+    public void setCommunityvisibilitystate(Integer communityvisibilitystate) {
+        this.communityvisibilitystate = communityvisibilitystate;
     }
 
-    public void setPersonaName(String personaName) {
-        this.personaName = personaName;
+    @JsonProperty("profilestate")
+    public Integer getProfilestate() {
+        return profilestate;
     }
 
-    public String getProfileUrl() {
-        return profileUrl;
+    @JsonProperty("profilestate")
+    public void setProfilestate(Integer profilestate) {
+        this.profilestate = profilestate;
     }
 
-    public void setProfileUrl(String profileUrl) {
-        this.profileUrl = profileUrl;
+    @JsonProperty("personaname")
+    public String getPersonaname() {
+        return personaname;
     }
 
+    @JsonProperty("personaname")
+    public void setPersonaname(String personaname) {
+        this.personaname = personaname;
+    }
+
+    @JsonProperty("lastlogoff")
+    public Integer getLastlogoff() {
+        return lastlogoff;
+    }
+
+    @JsonProperty("lastlogoff")
+    public void setLastlogoff(Integer lastlogoff) {
+        this.lastlogoff = lastlogoff;
+    }
+
+    @JsonProperty("profileurl")
+    public String getProfileurl() {
+        return profileurl;
+    }
+
+    @JsonProperty("profileurl")
+    public void setProfileurl(String profileurl) {
+        this.profileurl = profileurl;
+    }
+
+    @JsonProperty("avatar")
     public String getAvatar() {
         return avatar;
     }
 
+    @JsonProperty("avatar")
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
-    public String getAvatarMedium() {
-        return avatarMedium;
+    @JsonProperty("avatarmedium")
+    public String getAvatarmedium() {
+        return avatarmedium;
     }
 
-    public void setAvatarMedium(String avatarMedium) {
-        this.avatarMedium = avatarMedium;
+    @JsonProperty("avatarmedium")
+    public void setAvatarmedium(String avatarmedium) {
+        this.avatarmedium = avatarmedium;
     }
 
-    public String getAvatarFull() {
-        return avatarFull;
+    @JsonProperty("avatarfull")
+    public String getAvatarfull() {
+        return avatarfull;
     }
 
-    public void setAvatarFull(String avatarFull) {
-        this.avatarFull = avatarFull;
+    @JsonProperty("avatarfull")
+    public void setAvatarfull(String avatarfull) {
+        this.avatarfull = avatarfull;
     }
 
-    public String getPersonaState() {
-        return personaState;
+    @JsonProperty("personastate")
+    public Integer getPersonastate() {
+        return personastate;
     }
 
-    public void setPersonaState(String personaState) {
-        this.personaState = personaState;
+    @JsonProperty("personastate")
+    public void setPersonastate(Integer personastate) {
+        this.personastate = personastate;
     }
 
-    public String getCommunityVisibilityState() {
-        return communityVisibilityState;
+    @JsonProperty("primaryclanid")
+    public String getPrimaryclanid() {
+        return primaryclanid;
     }
 
-    public void setCommunityVisibilityState(String communityVisibilityState) {
-        this.communityVisibilityState = communityVisibilityState;
+    @JsonProperty("primaryclanid")
+    public void setPrimaryclanid(String primaryclanid) {
+        this.primaryclanid = primaryclanid;
     }
 
-    public String getProfileState() {
-        return profileState;
+    @JsonProperty("timecreated")
+    public Integer getTimecreated() {
+        return timecreated;
     }
 
-    public void setProfileState(String profileState) {
-        this.profileState = profileState;
+    @JsonProperty("timecreated")
+    public void setTimecreated(Integer timecreated) {
+        this.timecreated = timecreated;
     }
 
-    public String getLastLogoff() {
-        return lastLogoff;
+    @JsonProperty("personastateflags")
+    public Integer getPersonastateflags() {
+        return personastateflags;
     }
 
-    public void setLastLogoff(String lastLogoff) {
-        this.lastLogoff = lastLogoff;
+    @JsonProperty("personastateflags")
+    public void setPersonastateflags(Integer personastateflags) {
+        this.personastateflags = personastateflags;
     }
 
-    public Profile() {
+    @JsonProperty("loccountrycode")
+    public String getLoccountrycode() {
+        return loccountrycode;
     }
+
+    @JsonProperty("loccountrycode")
+    public void setLoccountrycode(String loccountrycode) {
+        this.loccountrycode = loccountrycode;
+    }
+
+    @JsonProperty("locstatecode")
+    public String getLocstatecode() {
+        return locstatecode;
+    }
+
+    @JsonProperty("locstatecode")
+    public void setLocstatecode(String locstatecode) {
+        this.locstatecode = locstatecode;
+    }
+
+    @JsonProperty("loccityid")
+    public Integer getLoccityid() {
+        return loccityid;
+    }
+
+    @JsonProperty("loccityid")
+    public void setLoccityid(Integer loccityid) {
+        this.loccityid = loccityid;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

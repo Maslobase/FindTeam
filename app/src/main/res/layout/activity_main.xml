@@ -1,9 +1,9 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainBackground"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,7 +22,7 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,7 +47,10 @@
                             android:id="@+id/username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/secondaryLightColor"
+                            android:textSize="14sp"
+                            tools:text="Username" />
 
                         <TableLayout
                             android:layout_width="match_parent"
@@ -59,18 +62,24 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"
-                                    android:text="MMR" />
+                                    android:text="MMR"
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"
-                                    android:text="MATCHES" />
+                                    android:text="MATCHES"
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="WINS/LOSSES" />
+                                    android:text="WINS/LOSSES"
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp" />
 
                             </TableRow>
 
@@ -80,19 +89,27 @@
                                     android:id="@+id/mmr"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp" />
+                                    android:layout_marginRight="10dp"
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp"
+                                    tools:text="mmr" />
 
                                 <TextView
                                     android:id="@+id/matches"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp" />
+                                    android:layout_marginRight="10dp"
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp"
+                                    tools:text="wl" />
 
                                 <TextView
                                     android:id="@+id/wl"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="wl" />
+                                    android:textColor="@color/secondaryLightColor"
+                                    android:textSize="14sp"
+                                    tools:text="wl" />
 
                             </TableRow>
 
@@ -106,20 +123,25 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="50dp">
+            android:layout_height="wrap_content">
 
-            <include layout="@layout/cardview_mostplayedheroes" />
-            <include layout="@layout/cardview_bestheroes" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="50dp">
 
-        </LinearLayout>
+                <include layout="@layout/cardview_mostplayedheroes" />
 
+                <include layout="@layout/cardview_bestheroes" />
+
+            </LinearLayout>
+        </ScrollView>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

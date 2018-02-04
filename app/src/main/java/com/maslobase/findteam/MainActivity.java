@@ -32,7 +32,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -333,21 +332,11 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Hero[] dota2StatsHeroes = gson.fromJson(dota2HeroesPlayerString, Hero[].class);
         List<Hero> heroesList = new ArrayList<>();
-
-//        Iterator<Hero> iterator = heroesList.iterator();
-//        while (iterator.hasNext()) {
-//            Hero value = iterator.next();
-//            if (value.getGames() < 5) {
-//                iterator.remove();
-//                break;
-//            }
-//        }
         for (int i = 0; i < dota2StatsHeroes.length; i++) {
             if (dota2StatsHeroes[i].getGames() > 4) {
                 heroesList.add(dota2StatsHeroes[i]);
             }
         }
-
         Collections.sort(heroesList, new Comparator<Hero>() {
             @Override
             public int compare(Hero hero1, Hero hero2) {
@@ -356,7 +345,6 @@ public class MainActivity extends AppCompatActivity {
                 return winrate1.compareTo(winrate2);
             }
         });
-
         Collections.reverse(heroesList);
 
         Integer heroId1 = Integer.valueOf(heroesList.get(0).getHero_id());
@@ -476,10 +464,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateProfile(String profileString) throws JSONException {
         Gson gson = new Gson();
-        // FIXME: deserialization fails!
         Profile profile = gson.fromJson(profileString, Profile.class);
-        Glide.with(this).load(profile.getAvatar()).into(avatarView);
-        usernameView.setText(profile.getPersonaName());
+        Glide.with(this).load(profile.getAvatarmedium()).into(avatarView);
+        usernameView.setText(profile.getPersonaname());
 
         // create/update profile JSON in Firebase
         writeNewProfile(profile);
