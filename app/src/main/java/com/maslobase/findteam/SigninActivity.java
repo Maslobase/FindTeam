@@ -134,7 +134,7 @@ public class SigninActivity extends BaseActivity implements GoogleApiClient.Conn
 
     // This method configures Google SignIn
     public void configureSignIn() {
-// Configure sign-in to request the user's basic profile like name and email
+        // Configure sign-in to request the user's basic profile like name and email
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(SigninActivity.this.getResources().getString(R.string.web_client_id))
                 .requestEmail()

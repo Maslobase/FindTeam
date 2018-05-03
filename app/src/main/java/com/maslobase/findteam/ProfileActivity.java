@@ -38,7 +38,7 @@ import java.util.List;
 
 import okhttp3.HttpUrl;
 
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private ImageView avatarView;
     private TextView usernameView;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
         heroesJson = Utils.parseJSONHeroes(this);
 
         userId = getIntent().getStringExtra("userId");
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         Activity parentActivity;
         String profileString;
 
-        public LoadAvatarTask(MainActivity activity) {
+        public LoadAvatarTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         Activity parentActivity;
         String dota2StatsWLString;
 
-        public LoadDota2WLStatsTask(MainActivity activity) {
+        public LoadDota2WLStatsTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         Activity parentActivity;
         String dota2StatsPlayerString;
 
-        public LoadDota2PlayerStatsTask(MainActivity activity) {
+        public LoadDota2PlayerStatsTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
         Activity parentActivity;
         String dota2HeroesPlayerString;
 
-        public LoadDota2PlayerHeroesTask(MainActivity activity) {
+        public LoadDota2PlayerHeroesTask(ProfileActivity activity) {
             this.parentActivity = activity;
         }
 
