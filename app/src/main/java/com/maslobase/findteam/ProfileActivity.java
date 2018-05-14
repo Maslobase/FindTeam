@@ -2,14 +2,18 @@ package com.maslobase.findteam;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,10 +80,15 @@ public class ProfileActivity extends AppCompatActivity {
     private StorageReference storageRef = storage.getReference();
     private Toolbar toolbar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         heroesJson = Utils.parseJSONHeroes(this);
 
         userId = getIntent().getStringExtra("userId");
@@ -129,8 +138,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.view_navigation_open, R.string.view_navigation_close);
-        drawerLayout.addDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.menu, R.string.menu);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
 
         navigationView = findViewById(R.id.navigation);
@@ -154,6 +164,16 @@ public class ProfileActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class LoadAvatarTask extends AsyncTask<String, Void, String> {
@@ -488,4 +508,5 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
+
 }

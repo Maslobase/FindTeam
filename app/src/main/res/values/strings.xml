@@ -14,8 +14,8 @@
     <string name="user_deletion_error">Failed to delete user</string>
     <string name="view_navigation_open">Open</string>
     <string name="view_navigation_close">Close</string>
-    <string name="browseTeams">Find a team</string>
-    <string name="browsePlayers">Find a player</string>
+    <string name="browseTeams">Teams</string>
+    <string name="browsePlayers">Players</string>
     <string name="exit">Exit</string>
     <string name="email">Email</string>
     <string name="hint_password">Password</string>
@@ -27,4 +27,5 @@
     <string name="loading">Loading...</string>
     <string name="log_error_occurred">Some error occured</string>
     <string name="web_client_id">487177749504-s3ubvk5fn20btn89lpuodu1jumbm98f8.apps.googleusercontent.com	</string>
+    <string name="menu">Menu</string>
 </resources>

@@ -32,6 +32,8 @@
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp">
 
+
+
                     <ImageView
                         android:id="@+id/avatar_dashboard"
                         android:layout_width="50dp"

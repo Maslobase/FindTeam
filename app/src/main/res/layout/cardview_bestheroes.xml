@@ -22,6 +22,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="16dp"
             android:text="Best heroes (winrate)"
+            android:textColor="@color/secondaryLightColor"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -48,6 +49,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="Lich" />
 
                 <TextView
@@ -56,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="30 games" />
             </LinearLayout>
 
@@ -77,6 +80,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="8dp"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="Lion" />
 
                 <TextView
@@ -85,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="30 games" />
             </LinearLayout>
 
@@ -107,6 +112,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="8dp"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="Lina" />
 
                 <TextView
@@ -115,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textSize="14sp"
+                    android:textColor="@color/secondaryLightColor"
                     tools:text="30 games" />
             </LinearLayout>
 
