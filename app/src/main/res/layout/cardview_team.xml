@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/short_title"
@@ -24,6 +24,16 @@
             android:text="Looking for carry"
             android:textSize="24sp"
             android:textStyle="normal" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignBottom="@+id/short_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            card_view:srcCompat="@android:drawable/btn_star" />
 
         <TextView
             android:id="@+id/short_description"
