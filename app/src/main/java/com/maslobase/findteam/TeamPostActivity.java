@@ -2,8 +2,17 @@ package com.maslobase.findteam;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.maslobase.findteam.models.Team;
 import com.maslobase.findteam.models.TeamPost;
 
 /**
@@ -12,6 +21,8 @@ import com.maslobase.findteam.models.TeamPost;
 
 public class TeamPostActivity extends AppCompatActivity {
 
+    private ImageView teamAvatarImage;
+    private TextView teamName;
     private TextView shortTitle;
     private TextView language;
     private TextView rank;
@@ -21,12 +32,17 @@ public class TeamPostActivity extends AppCompatActivity {
     private TextView roles;
     private TextView servers;
 
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference teamsRef = database.getReference().child("teams");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teampost);
 
+        teamAvatarImage = findViewById(R.id.teamAvatarImage);
+        teamName = findViewById(R.id.teamName);
         shortTitle = findViewById(R.id.postTitle);
         language = findViewById(R.id.postLanguage);
         rank = findViewById(R.id.postRank);
@@ -46,5 +62,22 @@ public class TeamPostActivity extends AppCompatActivity {
         roles.setText("Roles: ".concat(teamPost.getRoles()));
         servers.setText("Servers: ".concat(teamPost.getServers()));
 
+        teamsRef.child(teamPost.getId().toString()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Team team = dataSnapshot.getValue(Team.class);
+                updateTeamInfo(team);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateTeamInfo(Team team) {
+        teamName.setText(team.getName());
+        Glide.with(this).load(team.getAvatar()).into(teamAvatarImage);
     }
 }

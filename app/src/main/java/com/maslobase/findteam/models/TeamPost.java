@@ -20,6 +20,7 @@ public class TeamPost implements Parcelable {
     private String rank;
     private String servers;
     private String text;
+    private Long teamId;
 
     public TeamPost() {
 
@@ -27,7 +28,7 @@ public class TeamPost implements Parcelable {
 
     public TeamPost(Long id, String author, String shortTitle, String language, String mmr, String age,
                     String roles, String hoursPlayed, String rank, String servers,
-                    String text) {
+                    String text, Long teamId) {
         this.id = id;
         this.author = author;
         this.shortTitle = shortTitle;
@@ -39,6 +40,7 @@ public class TeamPost implements Parcelable {
         this.rank = rank;
         this.servers = servers;
         this.text = text;
+        this.teamId = teamId;
     }
 
     public TeamPost(Parcel parcel) {
@@ -53,6 +55,7 @@ public class TeamPost implements Parcelable {
         this.rank = parcel.readString();
         this.servers = parcel.readString();
         this.text = parcel.readString();
+        this.teamId = parcel.readLong();
     }
 
     public static final Creator<TeamPost> CREATOR = new Creator<TeamPost>() {
@@ -155,6 +158,14 @@ public class TeamPost implements Parcelable {
         this.text = text;
     }
 
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -173,5 +184,6 @@ public class TeamPost implements Parcelable {
         parcel.writeString(rank);
         parcel.writeString(servers);
         parcel.writeString(text);
+        parcel.writeLong(teamId);
     }
 }
