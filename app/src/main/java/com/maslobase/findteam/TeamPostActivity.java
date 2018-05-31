@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,13 +53,13 @@ public class TeamPostActivity extends AppCompatActivity {
 
         TeamPost teamPost = getIntent().getParcelableExtra("teamPost");
         shortTitle.setText(teamPost.getShortTitle());
-        language.setText("Language: ".concat(teamPost.getLanguage()));
-        rank.setText("Rank: ".concat(teamPost.getRank()));
-        mmr.setText("Mmr: ".concat(teamPost.getMmr()));
-        hoursPlayed.setText("Hours Played: ".concat(teamPost.getHoursPlayed()));
-        age.setText("Age: ".concat(teamPost.getAge()));
-        roles.setText("Roles: ".concat(teamPost.getRoles()));
-        servers.setText("Servers: ".concat(teamPost.getServers()));
+        language.setText(teamPost.getLanguage());
+        rank.setText(teamPost.getRank());
+        mmr.setText(teamPost.getMmr());
+        hoursPlayed.setText(teamPost.getHoursPlayed());
+        age.setText(teamPost.getAge());
+        roles.setText(teamPost.getRoles());
+        servers.setText(teamPost.getServers());
 
         teamsRef.child(teamPost.getId().toString()).addValueEventListener(new ValueEventListener() {
             @Override
