@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.maslobase.findteam.R;
 import com.maslobase.findteam.TeamPostActivity;
+import com.maslobase.findteam.holders.TeamViewHolder;
 import com.maslobase.findteam.models.TeamPost;
 
 import java.util.List;

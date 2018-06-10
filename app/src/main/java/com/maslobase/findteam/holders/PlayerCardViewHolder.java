@@ -1,4 +1,4 @@
-package com.maslobase.findteam.adapters;
+package com.maslobase.findteam.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

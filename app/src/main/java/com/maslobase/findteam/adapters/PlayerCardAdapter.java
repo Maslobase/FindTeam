@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maslobase.findteam.R;
+import com.maslobase.findteam.holders.PlayerCardViewHolder;
 import com.maslobase.findteam.models.PlayerPost;
 
 import java.util.List;

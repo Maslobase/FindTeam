@@ -1,7 +1,10 @@
 package com.maslobase.findteam;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ public class TeamPostActivity extends AppCompatActivity {
     private TextView age;
     private TextView roles;
     private TextView servers;
+    private FloatingActionButton fab;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference teamsRef = database.getReference().child("teams");
@@ -50,8 +54,9 @@ public class TeamPostActivity extends AppCompatActivity {
         age = findViewById(R.id.postAge);
         roles = findViewById(R.id.postRoles);
         servers = findViewById(R.id.postServers);
+        fab = findViewById(R.id.chat_with_team_btn);
 
-        TeamPost teamPost = getIntent().getParcelableExtra("teamPost");
+        final TeamPost teamPost = getIntent().getParcelableExtra("teamPost");
         shortTitle.setText(teamPost.getShortTitle());
         language.setText(teamPost.getLanguage());
         rank.setText(teamPost.getRank());
@@ -60,6 +65,16 @@ public class TeamPostActivity extends AppCompatActivity {
         age.setText(teamPost.getAge());
         roles.setText(teamPost.getRoles());
         servers.setText(teamPost.getServers());
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TeamPostActivity.this, ChatActivity.class);
+                intent.putExtra("authorSteamId", teamPost.getAuthor());
+                intent.putExtra("postId", teamPost.getId());
+                startActivity(intent);
+            }
+        });
 
         teamsRef.child(teamPost.getId().toString()).addValueEventListener(new ValueEventListener() {
             @Override

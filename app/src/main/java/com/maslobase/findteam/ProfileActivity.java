@@ -2,18 +2,15 @@ package com.maslobase.findteam;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -92,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
         heroesJson = Utils.parseJSONHeroes(this);
 
         userId = getIntent().getStringExtra("userId");
+        Utils.setCurrentUserSteamId(userId);
         DatabaseReference usersRef = database.getReference("users");
         usersRef.push();
 

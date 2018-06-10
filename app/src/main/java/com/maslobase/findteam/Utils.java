@@ -6,8 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.service.notification.StatusBarNotification;
 
 import com.google.common.primitives.UnsignedLong;
+import com.maslobase.findteam.models.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import java.net.URL;
 public class Utils {
 
     private Context mContext = null;
+    private static String currentUserSteamId;
 
     /**
      * Public constructor that takes mContext for later use
@@ -177,5 +180,17 @@ public class Utils {
 
     public static String steamId64ToSteamId32(String steamId64) {
         return String.valueOf(UnsignedLong.valueOf(steamId64).intValue());
+    }
+
+    public static String formatDateTime(long createdAt) {
+        return null;
+    }
+
+    public static String getCurrentUserSteamId() {
+        return currentUserSteamId;
+    }
+
+    public static void setCurrentUserSteamId(String currentUserSteamId) {
+        Utils.currentUserSteamId = currentUserSteamId;
     }
 }

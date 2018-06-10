@@ -1,4 +1,4 @@
-package com.maslobase.findteam.adapters;
+package com.maslobase.findteam.holders;
 
 import android.content.Context;
 import android.content.Intent;

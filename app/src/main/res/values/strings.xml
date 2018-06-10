@@ -28,4 +28,5 @@
     <string name="log_error_occurred">Some error occured</string>
     <string name="web_client_id">487177749504-s3ubvk5fn20btn89lpuodu1jumbm98f8.apps.googleusercontent.com	</string>
     <string name="menu">Menu</string>
+    <string name="title_activity_chat">ChatActivity</string>
 </resources>
