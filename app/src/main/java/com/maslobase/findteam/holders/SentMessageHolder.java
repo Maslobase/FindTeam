@@ -24,7 +24,7 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
     private Profile authorProfile;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference usersRef;
+    private DatabaseReference dataRef = database.getReference();
 
     public SentMessageHolder(View itemView) {
         super(itemView);
@@ -34,10 +34,10 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final Message message) {
-        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                authorProfile = dataSnapshot.child(message.getSender()).getValue(Profile.class);
+                authorProfile = dataSnapshot.child("users").child(message.getSender()).getValue(Profile.class);
             }
 
             @Override
@@ -49,7 +49,7 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
 
         // Format the stored timestamp into a readable String using method.
         timeText.setText(Utils.formatDateTime(message.getCreatedAt()));
-        nameText.setText(authorProfile.getPersonaname());
+        //nameText.setText(authorProfile.getPersonaname());
 
     }
 }
